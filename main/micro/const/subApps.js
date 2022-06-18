@@ -1,5 +1,9 @@
-let list = []
+let list = [];
 
-export const getList = () => list
+export const getList = () => {
+	return list;
+};
 
-export const setList = appList => list = appList
+export const setList = (newList) => {
+	list = newList;
+};

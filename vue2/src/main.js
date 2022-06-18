@@ -31,7 +31,7 @@ function render(props = {}) {
 }
 
 // 不在微前端环境下直接执行render函数
-if (!window.__POWERED_BY_QIANKUN__) {
+if (!window.__IS_MICRO_WEB_ENV__) {
 	render();
 }
 
@@ -51,19 +51,22 @@ function storeTest(props) {
 		});
 }
 
+// 第一次加载子应用
 export async function bootstrap() {
-	console.log('[vue] vue app bootstraped');
+	console.log('vue2 bootstraped');
 }
 
+// 子应用完成加载
 export async function mount(props) {
-	console.log('[vue] props from main framework', props);
+	console.log('[vue] props from main framework，vue2 mount', props);
 	storeTest(props);
 	render(props);
 }
 
 export async function unmount() {
-	instance.$destroy();
-	instance.$el.innerHTML = '';
-	instance = null;
-	router = null;
+	console.log('vue2 unmount');
+	// instance.$destroy();
+	// instance.$el.innerHTML = '';
+	// instance = null;
+	// router = null;
 }

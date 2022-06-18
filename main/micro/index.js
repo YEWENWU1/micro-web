@@ -1,2 +1,1 @@
-export { registerMicroApps, start } from './start'
-export { createStore } from './store'
+export { registerMicroApps, start } from './start';

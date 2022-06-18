@@ -1,7 +1,3 @@
-/**
- * @author Kuitos
- * @since 2019-05-16
- */
 import 'antd/dist/antd.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -10,11 +6,11 @@ import './index.css';
 import './public-path';
 
 export async function bootstrap() {
-	console.log('[react15] react app bootstraped');
+	console.log('react15 bootstraped');
 }
 
 export async function mount(props = {}) {
-	console.log('[react15] props from main framework', props);
+	console.log('react15 mount');
 	const { container } = props;
 	ReactDOM.render(
 		<App />,
@@ -36,6 +32,7 @@ export async function mount(props = {}) {
 }
 
 export async function unmount(props) {
+	console.log('react15 unmount');
 	const { container } = props;
 	ReactDOM.unmountComponentAtNode(
 		container
@@ -44,6 +41,6 @@ export async function unmount(props) {
 	);
 }
 
-if (!window.__POWERED_BY_QIANKUN__) {
+if (!window.__IS_MICRO_WEB_ENV__) {
 	bootstrap().then(mount);
 }

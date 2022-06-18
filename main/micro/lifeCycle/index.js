@@ -1,58 +1,15 @@
-import { findAppByRoute } from '../utils'
-import { getMainLifecycle } from '../const/mainLifeCycle'
-import { loadHtml } from '../loader'
+import getAppByRouter from '../utils/getAppByRouter';
 
-export const lifecycle = async () => {
-  // 获取到上一个子应用
-  const prevApp = findAppByRoute(window.__ORIGIN_APP__)
+// 处理子应用切换时的生命周期函数
+export const lifeCycle = () => {
+	// 获取上一个子应用，先将上一个子应用卸载
+	const preApp = getAppByRouter(window.__ORIGINAL_APP__);
+	// 获取要跳转到的子应用
+	const nextApp = getAppByRouter(window.__CURRENT_APP__);
+	console.log('上一个子应用：', preApp, '下一个子应用：', nextApp);
 
-  // 获取到要跳转到的子应用
-  const nextApp = findAppByRoute(window.__CURRENT_SUB_APP__)
-
-  if (!nextApp) {
-    return
-  }
-
-  if (prevApp && prevApp.unmount) {
-    if (prevApp.proxy) {
-      prevApp.proxy.inactive() // 将沙箱销毁
-    }
-    await destoryed(prevApp)
-  }
-
-  const app = await beforeLoad(nextApp)
-
-  await mounted(app)
-}
-
-export const beforeLoad = async (app) => {
-  await runMainLifeCycle('beforeLoad')
-  app && app.beforeLoad && app.beforeLoad()
-
-  const subApp = await loadHtml(app) // 获取的是子应用的内容
-  subApp && subApp.beforeLoad && subApp.beforeLoad()
-
-  return subApp
-}
-
-export const mounted = async (app) => {
-  app && app.mount && app.mount({
-    appInfo: app.appInfo,
-    entry: app.entry
-  })
-
-  await runMainLifeCycle('mounted')
-}
-
-export const destoryed = async (app) => {
-  app && app.unmount && app.unmount()
-
-  // 对应的执行以下主应用的生命周期
-  await runMainLifeCycle('destoryed')
-}
-
-export const runMainLifeCycle = async (type) => {
-  const mainlife = getMainLifecycle()
-
-  await Promise.all(mainlife[type].map(async item => await item()))
-}
+	// 没有下一个子应用暂时不处理
+	if (!nextApp) {
+		return;
+	}
+};

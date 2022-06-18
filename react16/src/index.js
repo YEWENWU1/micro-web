@@ -5,37 +5,51 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 function render(props) {
-  const { container } = props;
-  ReactDOM.render(<App />, container ? container.querySelector('#root') : document.querySelector('#root'));
+	const { container } = props;
+	ReactDOM.render(
+		<App />,
+		container
+			? container.querySelector('#root')
+			: document.querySelector('#root')
+	);
 }
 
 function storeTest(props) {
-  props.onGlobalStateChange((value, prev) => console.log(`[onGlobalStateChange - ${props.name}]:`, value, prev), true);
-  props.setGlobalState({
-    ignore: props.name,
-    user: {
-      name: props.name,
-    },
-  });
+	props.onGlobalStateChange(
+		(value, prev) =>
+			console.log(`[onGlobalStateChange - ${props.name}]:`, value, prev),
+		true
+	);
+	props.setGlobalState({
+		ignore: props.name,
+		user: {
+			name: props.name,
+		},
+	});
 }
 
-if (!window.__POWERED_BY_QIANKUN__) {
-  render({});
+if (!window.__IS_MICRO_WEB_ENV__) {
+	render({});
 }
 
 export async function bootstrap() {
-  console.log('[react16] react app bootstraped');
+	console.log('react16 bootstraped');
 }
 
 export async function mount(props) {
-  console.log('[react16] props from main framework', props);
-  storeTest(props);
-  render(props);
+	console.log('react16 mount');
+	storeTest(props);
+	render(props);
 }
 
 export async function unmount(props) {
-  const { container } = props;
-  ReactDOM.unmountComponentAtNode(container ? container.querySelector('#root') : document.querySelector('#root'));
+	console.log('react16 unmount');
+	const { container } = props;
+	ReactDOM.unmountComponentAtNode(
+		container
+			? container.querySelector('#root')
+			: document.querySelector('#root')
+	);
 }
 
 // If you want your app to work offline and load faster, you can change
