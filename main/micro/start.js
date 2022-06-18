@@ -1,6 +1,6 @@
 import { getList, setList } from './const/subApps';
 import { rewriteRouter } from './router/rewriteRouter';
-import { getMainLifeCycle, setMainLifeCycle } from './const/mainLeftCycle';
+import { getMainLifeCycle, setMainLifeCycle } from './const/mainLifeCycle';
 import getAppByRouter from './utils/getAppByRouter';
 // 实现路由拦截
 rewriteRouter();

@@ -27,21 +27,21 @@ registerMicroApps(
 		{
 			name: 'react16',
 			entry: '//localhost:7100',
-			container: '#subapp-viewport',
+			container: '#subapp-container',
 			loader,
 			activeRule: '/react16',
 		},
 		{
 			name: 'react15',
 			entry: '//localhost:7102',
-			container: '#subapp-viewport',
+			container: '#subapp-container',
 			loader,
 			activeRule: '/react15',
 		},
 		{
 			name: 'vue',
 			entry: '//localhost:7101',
-			container: '#subapp-viewport',
+			container: '#subapp-container',
 			loader,
 			activeRule: '/vue',
 		},
@@ -55,14 +55,14 @@ registerMicroApps(
 		{
 			name: 'purehtml',
 			entry: '//localhost:7104',
-			container: '#subapp-viewport',
+			container: '#subapp-container',
 			loader,
 			activeRule: '/purehtml',
 		},
 		{
 			name: 'vue3',
 			entry: '//localhost:7105',
-			container: '#subapp-viewport',
+			container: '#subapp-container',
 			loader,
 			activeRule: '/vue3',
 		},
@@ -70,17 +70,17 @@ registerMicroApps(
 	{
 		beforeLoad: [
 			(app) => {
-				console.log('beforeLoad');
+				console.log('主应用beforeLoad', app && app.name);
 			},
 		],
 		mounted: [
 			(app) => {
-				console.log('mount');
+				console.log('主应用mount', app && app.name);
 			},
 		],
 		afterUnmount: [
 			(app) => {
-				console.log('after unmount');
+				console.log('主应用after unmount：', app && app.name);
 			},
 		],
 	}
